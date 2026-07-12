@@ -3,6 +3,7 @@
 ## next
 - :star: Add opt-in mode for trigger association
 - :star: Add SOCKS5/HTTP proxy support to Telegram trigger
+- :fire: Fix digest comparison for single-platform manifests resolved from a manifest list
 
 ## 8.2.2
 - :star: Add public Codeberg registry (codeberg.org) to the list of default supported registries
