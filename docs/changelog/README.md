@@ -4,6 +4,7 @@
 - :star: Add opt-in mode for trigger association
 - :star: Add SOCKS5/HTTP proxy support to Telegram trigger
 - :star: Add runtime subpath proxy support with WUD_SERVER_BASEPATH
+- :star: Improve MQTT trigger
 - :fire: Fix digest comparison for single-platform manifests resolved from a manifest list
 - :fire: [NTFY] - Fix basic auth
 - :fire: [UI] - Fix container filters on mobile
