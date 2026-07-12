@@ -80,8 +80,11 @@ class Dockercompose extends Docker {
         }
 
         // Check if container has automatic compose file label
-        if (container.labels && container.labels["com.docker.compose.project.config_files"]) {
-            return container.labels["com.docker.compose.project.config_files"]
+        if (
+            container.labels &&
+            container.labels['com.docker.compose.project.config_files']
+        ) {
+            return container.labels['com.docker.compose.project.config_files'];
         }
 
         // Fall back to default configuration file

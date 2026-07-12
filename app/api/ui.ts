@@ -24,7 +24,11 @@ function serveIndex(res) {
  */
 export function init() {
     const router = express.Router();
-    router.use(express.static(path.join(__dirname, '..', '..', 'ui'), { index: false }));
+    router.use(
+        express.static(path.join(__dirname, '..', '..', 'ui'), {
+            index: false,
+        }),
+    );
 
     // Redirect all 404 to index.html (for vue history mode)
     router.get('*', (req, res) => {

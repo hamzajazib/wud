@@ -145,7 +145,11 @@ export class Ecr extends Registry {
               }
             : undefined;
     }
-    getTagsPage(image: ContainerImage, lastItem: string | undefined = undefined, link: string | undefined = undefined) {
+    getTagsPage(
+        image: ContainerImage,
+        lastItem: string | undefined = undefined,
+        link: string | undefined = undefined,
+    ) {
         const itemsPerPage = 1000;
         if (link) {
             const linkUrl = link.match(/<(.+?)>/);
