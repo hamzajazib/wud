@@ -1,55 +1,20 @@
-# Common Stage
+# Common stage
 FROM node:24-alpine AS base
 WORKDIR /home/node/app
 
-# App dependency stage
-FROM base AS app-dependencies
-COPY app/package* ./
-RUN npm ci --omit=dev --omit=optional --no-audit --no-fund --no-update-notifier
-
-# UI stage - building UI assets
-FROM base AS ui-dependencies
-COPY ./ui ./
-RUN pwd && tree .
-RUN npm ci --no-audit --no-fund --no-update-notifier && npm run build
-
-# Release stage
-FROM base AS release 
-
-LABEL maintainer="fmartinou"
-EXPOSE 3000
-ARG WUD_VERSION=unknown
-
-ENV WORKDIR=/home/node/app
-ENV WUD_LOG_FORMAT=text
-ENV WUD_VERSION=$WUD_VERSION
-
-HEALTHCHECK --interval=30s --timeout=5s CMD if [[ -z ${WUD_SERVER_ENABLED} || ${WUD_SERVER_ENABLED} == 'true' ]]; then curl --fail http://localhost:${WUD_SERVER_PORT:-3000}/health || exit 1; else exit 0; fi;
-
-# Setup directory structure
-RUN mkdir /store
-
-# Add useful stuff
-# RUN apk add --no-cache tzdata openssl curl git jq bash
+# Install runtime packages used by release stage
 RUN apk add --no-cache tzdata openssl curl bash
 
-COPY Docker.entrypoint.sh /usr/bin/entrypoint.sh
-RUN chmod +x /usr/bin/entrypoint.sh
-
-## Copy dependencies and artifacts
-COPY --from=app-dependencies /home/node/app/node_modules ./node_modules
-COPY --from=ui-dependencies /home/node/app/dist/ ./ui
-
-# Copy app source
+# App build stage
+FROM base AS app-build
+WORKDIR /home/node/app
+COPY app/package*.json ./
+RUN npm ci --include=dev --omit=optional --no-audit --no-fund --no-update-notifier
 COPY app/ ./
-
-# Build
 RUN npm run build
-
-# Remove dev dependencies
 RUN npm prune --omit=dev
 
-# UI Build stage
+# UI build stage
 FROM base AS ui-build
 WORKDIR /home/node/ui
 COPY ui/package*.json ./
@@ -58,20 +23,30 @@ COPY ui/ ./
 RUN npm run build
 
 # Release stage
-FROM base AS release
+FROM node:24-alpine AS release
+WORKDIR /home/node/app
 
-# Default entrypoint
+LABEL maintainer="fmartinou"
+EXPOSE 3000
+ARG WUD_VERSION=unknown
+ENV WORKDIR=/home/node/app
+ENV WUD_LOG_FORMAT=text
+ENV WUD_VERSION=$WUD_VERSION
+
+HEALTHCHECK --interval=30s --timeout=5s CMD if [[ -z ${WUD_SERVER_ENABLED} || ${WUD_SERVER_ENABLED} == 'true' ]]; then curl --fail http://localhost:${WUD_SERVER_PORT:-3000}/health || exit 1; else exit 0; fi;
+
+RUN apk add --no-cache tzdata openssl curl bash
+
 COPY Docker.entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
+
+# Copy app runtime artifacts
+COPY --from=app-build /home/node/app/node_modules ./node_modules
+COPY --from=app-build /home/node/app/dist ./dist
+COPY --from=app-build /home/node/app/package.json ./package.json
+
+# Copy UI build output
+COPY --from=ui-build /home/node/ui/dist ./ui
+
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["node", "dist/index"]
-
-## Copy node_modules
-COPY --from=build /home/node/app/node_modules ./node_modules
-
-# Copy app (dist)
-COPY --from=build /home/node/app/dist ./dist
-COPY --from=build /home/node/app/package.json ./package.json
-
-# Copy ui
-COPY --from=ui-build /home/node/ui/dist ./ui
