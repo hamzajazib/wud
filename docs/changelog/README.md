@@ -11,8 +11,10 @@
 - :fire: [NTFY] - Fix basic auth
 - :fire: [UI] - Fix container filters on mobile
 - :fire: [ECR] - Use link header for pagination
+- :fire: Fix Passport auth
+- :lock: Update OIDC library
 - :wrench: Add multi-stage UI build to Dockerfile
-- :wrench: Update OIDC library
+- :wrech: Add Playwright e2e tests
 
 ## 8.2.2
 - :star: Add public Codeberg registry (codeberg.org) to the list of default supported registries
