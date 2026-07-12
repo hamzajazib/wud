@@ -5,6 +5,7 @@
 - :star: Add SOCKS5/HTTP proxy support to Telegram trigger
 - :star: Add runtime subpath proxy support with WUD_SERVER_BASEPATH
 - :star: Improve MQTT trigger
+- :star: Add ENV option for watch digest default
 - :fire: Fix digest comparison for single-platform manifests resolved from a manifest list
 - :fire: [NTFY] - Fix basic auth
 - :fire: [UI] - Fix container filters on mobile
