@@ -58,7 +58,7 @@ Feature: WUD Container API Exposure
     And response body path $.name should be hub_nginx_latest
     And response body path $.image.tag.semver should be false
     And response body path $.image.digest.value should be sha256:4aacdcf186934dcb02f642579314075910f1855590fd3039d8fa4c9f96e48315
-    And response body path $.result.digest should be sha256:3b2371e667437fb3b406f090081775daf1ebcdb981d19bc497703b150f49e356
+    And response body path $.result.digest should be sha256:0e768ba3686f7db3ab5687f1a65e641ef1e6d5b49e1d01a26d9f56d41e010a4f
     And response body path $.updateAvailable should be true
 
   # Test link functionality
