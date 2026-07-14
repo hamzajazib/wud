@@ -13,6 +13,7 @@
 - :fire: [ECR] - Use link header for pagination
 - :fire: Fix Passport auth
 - :fire: [DOCKER-COMPOSE] - Fix services without images
+- :fire: Fix txt log format
 - :lock: Update OIDC library
 - :wrench: Add multi-stage UI build to Dockerfile
 - :wrech: Add Playwright e2e tests
