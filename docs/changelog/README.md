@@ -2,6 +2,7 @@
 
 ## next
 - :fire: [DOCKER-COMPOSE] - Fix trigger fails to detect containers in compose file
+- :wrench: [TELEGRAM] - Replace deprecated client by direct HTTP API use
 
 ## 8.3.0
 - :star: Add opt-in mode for trigger association
@@ -18,7 +19,7 @@
 - :fire: Fix Passport auth
 - :fire: [DOCKER-COMPOSE] - Fix services without images
 - :fire: Fix txt log format
-- :lock: Update OIDC library
+- :wrench: Update OIDC library
 - :wrench: Add multi-stage UI build to Dockerfile
 - :wrench: Add Playwright e2e tests
 
@@ -28,7 +29,7 @@
 - :fire: Fix startup errors for some users
 
 ## 8.2.1
-- :lock: Migrate backend to typescript
+- :wrench: Migrate backend to typescript
 - :fire: [APPRISE] - Fix bad request error ("Payload lacks minimum requirements")
 - :fire: [DISCORD] - Fix bad request error ("Invalid URL")
 - :fire: [NTFY] - Fix token auth
@@ -45,11 +46,11 @@
 - :star: Add `wud.compose.file` supported label
 - :star: Add Rocket.chat trigger
 - :star: [SMTP] - Allow from address to take a display name
-- :lock: [UI] - Migrate to Vue 3
-- :lock: [UI] - Migrate to Vuetify 3
-- :lock: [UI] - Migrate to typescript
-- :lock: Upgrade to node.js 24
-- :lock: Switch to Alpine docker image
+- :wrench: [UI] - Migrate to Vue 3
+- :wrench: [UI] - Migrate to Vuetify 3
+- :wrench: [UI] - Migrate to typescript
+- :wrench: Upgrade to node.js 24
+- :wrench: Switch to Alpine docker image
 - :fire: Fix docker-compose yaml when many aliases
 - :fire: Ignore `sig` tags
 
@@ -80,8 +81,8 @@
 - :star: [UI] - Add ability to group containers by label
 - :star: New logo! :smile:
 - :fire: [TRIGGER] - Fix specific triggers to specific containers association issue
-- :lock: Add prettier
-- :lock: Upgrade to node.js 23
+- :wrench: Add prettier
+- :wrench: Upgrade to node.js 23
 
 !> **Breaking changes!** \
 Registry configuration has changed; please adapt [your environment variables](/configuration/registries/) \
